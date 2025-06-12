@@ -10,13 +10,15 @@ A partir de la base de datos suministrada y mediante DQL. Hacer las consultas (q
 ### 5. ¿Cuál es la dirección (address) y distrito (district) de la persona cuyo teléfono es 634445428822?
 
 
--- ejericio 1
+-- ejercicio 1
+
 
 SELECT COUNT(*) as total_stores FROM store;
 
 ![Texto alternativo](images/ejercicio1.PNG)
 
--- ejrcicio 2 
+-- ejercicio 2 
+
 
 SELECT COUNT(*) AS film_duration FROM film WHERE length > 120;
 
@@ -33,12 +35,14 @@ SELECT COUNT(*) AS total_pay FROM payment WHERE customer_id = 472;
 
 
 -- ejercicio 4
+
 select film_id from inventory where inventory_id=303; 
 
 ![Texto alternativo](images/ejercicio4.PNG)
 
  
 -- ejercicio 5
+
  select address, district from address where phone='634445428822'; 
 
  ![Texto alternativo](images/ejercicio5.PNG)
