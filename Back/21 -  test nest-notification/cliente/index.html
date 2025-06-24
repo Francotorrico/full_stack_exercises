@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notificaciones-nest</title>
+  <script src="https://cdn.socket.io/3.1.3/socket.io.min.js"
+    integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh"
+    crossorigin="anonymous"></script>
+  <style>
+    /* *{
+       outline: yellow solid 1px; 
+    }*/
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #aaa;
+      color: #111827;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #container {
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+      box-sizing: border-box;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    #loginDiv {
+      margin-bottom: 20px;
+    }
+
+    #inputUserId {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      box-sizing: border-box;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+
+    #btnLogin {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+
+    #btnLogin:hover {
+      background-color: #2563eb;
+    }
+
+    /* Navbar style */
+    #notifIcon {
+      cursor: pointer;
+      user-select: none;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: white;
+      border-radius: 50%;
+      width: 90px;
+      height: 90px;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+      font-size: 40px;
+      position: fixed;
+    }
+
+    #notifIcon .icon {
+      font-size: 40px;
+    }
+
+    #notifCount {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #ef4444;
+      color: white;
+      font-weight: bold;
+      border-radius: 50%;
+      padding: 4px 4px;
+      font-size: 14px;
+      user-select: none;
+      display: inline-block;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    #notifPanel {
+      position: fixed;
+      top: 120px;
+      right: 20px;
+      width: 320px;
+      max-height: 400px;
+      background-color: white;
+      box-shadow: 0 2px 12px rgb(0 0 0 / 0.2);
+      border-radius: 8px;
+      padding: 12px;
+      display: none;
+
+      text-align: left;
+    }
+
+    .notification {
+      border: 1px solid #ccc;
+      margin-bottom: 8px;
+      padding: 10px;
+      border-radius: 6px;
+      background-color: #fafafa;
+    }
+
+    .notification.unread {
+      background-color: #e0e7ff;
+      border-color: #6366f1;
+    }
+
+    .notification button {
+      margin-top: 8px;
+      padding: 6px 12px;
+      cursor: pointer;
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+    }
+
+    .notification button:hover {
+      background-color: #2563eb;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+
+    <h1 id="title">Test Socket de notificación</h1>
+
+    <div id="loginDiv">
+      <input type="text" id="inputUserId" placeholder="Ingresa tu userId" />
+      <button id="btnLogin">Entrar</button>
+    </div>
+
+    <div id="notifIcon" title="Ver notificaciones">
+      <span class="icon">🔔</span>
+      <span id="notifCount">0</span>
+    </div>
+
+    <div id="notifPanel"></div>
+  </div>
+
+  <script>
+    let socket;
+    let notifications = [];
+    let userId = null;
+
+    const loginDiv = document.getElementById('loginDiv');
+    const inputUserId = document.getElementById('inputUserId');
+    const btnLogin = document.getElementById('btnLogin');
+    const notifIcon = document.getElementById('notifIcon');
+    const notifCount = document.getElementById('notifCount');
+    const notifPanel = document.getElementById('notifPanel');
+
+    btnLogin.onclick = () => {
+      const value = inputUserId.value.trim();
+      if (!value) {
+        alert('Por favor ingresa un userId válido.');
+        return;
+      }
+      userId = value;
+      document.getElementById('title').innerHTML  = `Test Socket de notificación<br>usuario: ${userId} `;
+
+      iniciarSocket();
+      loginDiv.style.display = 'none';
+      notifIcon.style.display = 'flex';
+    };
+
+    notifIcon.addEventListener('click', () => {
+      const isVisible = notifPanel.style.display === 'block';
+      notifPanel.style.display = isVisible ? 'none' : 'block';
+      renderNotifications();
+    });
+
+    function iniciarSocket() {
+      socket = io('http://localhost:3000', { query: { userId } });
+
+      socket.on('connect', () => {
+        console.log('Conectado con id:', socket.id);
+        console.log('Conectado con userId:', userId);
+        socket.emit('getAllNotifications', { user_id: userId });
+      });
+
+      socket.on('disconnect', () => {
+        console.log('Desconectado');
+      });
+
+      socket.on('new-notification', (data) => {
+        console.log('Notificación recibida:', data);
+        notifications.unshift(data);
+        renderNotifications();
+      });
+
+      socket.on('allNotifications', ({ notifications: receivedNotifications }) => {
+        notifications = receivedNotifications;
+        renderNotifications();
+      });
+
+      socket.on('unreadCountUpdated', ({ unreadCount }) => {
+        if (unreadCount > 0) {
+          notifCount.style.display = 'inline-block';
+          notifCount.innerText = unreadCount;
+        } else {
+          notifCount.style.display = 'none';
+        }
+      });
+    }
+
+    function renderNotifications() {
+      notifPanel.innerHTML = '';
+
+      if (notifications.length === 0) {
+        notifPanel.innerHTML = '<p style="text-align: center; color: #666;">No hay notificaciones</p>';
+      } else {
+        notifications.forEach((n) => {
+          const div = document.createElement('div');
+          div.className = 'notification' + (n.read ? '' : ' unread');
+          div.innerHTML = `<strong>[${n.type}]</strong> ${n.message}<br>`;
+
+          if (!n.read) {
+            const btn = document.createElement('button');
+            btn.textContent = 'Marcar como leída';
+            btn.onclick = () => {
+              socket.emit('markAsRead', { id: n.id, userId });
+              n.read = true;
+              renderNotifications();
+            };
+            div.appendChild(btn);
+          }
+
+          notifPanel.appendChild(div);
+        });
+      }
+      const unreadCount = notifications.filter((n) => !n.read).length;
+      notifCount.style.display = 'inline-block';
+
+      notifCount.innerText = unreadCount;
+    }
+
+  </script>
+</body>
+
+</html>
