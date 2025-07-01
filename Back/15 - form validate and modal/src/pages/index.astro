@@ -1,0 +1,108 @@
+---
+
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Astro</title>
+	</head>
+	<body>
+		<h1>Astro</h1>
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+		</ul>
+		<a href="https://github.com/withastro/astro1">GitHub</a>
+		<a href="https://github.com/withastro/astro2">Docker</a>
+		<a href="https://github.com/withastro/astro3">HTML</a>
+
+		<button id="submit" type="submit">Submit</button>
+		<input type="text" name="email" placeholder="Email" />
+		<input type="text" name="name" placeholder="Name" />
+		<input type="text" name="message" placeholder="Message" />
+		<div class="message-box">
+			<a href="">Dentro de div</a>
+		</div>
+		<div id="notification"></div>
+	</body>
+</html>
+
+<script>
+	const $anchor = window.document.querySelector("a");
+	// console.log($anchor);
+
+	const $button = document.querySelector("button");
+	const $nameInput = document.querySelector('input[name="name"]');
+	// console.log($nameInput?.name);
+
+	//captura una clase
+	const $messageBox = document.querySelector(".message-box");
+
+	const $a2 = $messageBox.querySelector("a");
+	// console.log($a2)
+	//capturo con id
+	const $notification = document.querySelector("#notification");
+
+	//todos los inputs
+	const $allInputs = document.querySelectorAll("input");
+	// console.log($allInputs);
+	const $submitButton = document.getElementById("submit");
+	const $allButtons = document.querySelectorAll("button");
+
+	// const arr=[...$allInputs];
+	// $allInputs.forEach((element) => arr.push(element))
+	const eventinput = (event) => {
+		const target = event.target as HTMLInputElement;
+		console.log(target.value);
+	};
+
+	let remainingClicks = 5;
+	const controller = new AbortController();
+
+	const handleClick = () => {
+		console.log("¡Hiciste click!");
+		remainingClicks--;
+
+		if (remainingClicks === 0) {
+			console.log("¡No te quedan clicks!");
+			controller.abort();
+		}
+
+		console.log(`Te quedan ${remainingClicks} clicks!`);
+	};
+
+	$submitButton.addEventListener("click", handleClick, {
+		signal: controller.signal,
+	});
+	// $submitButton.addEventListener(
+	// 	"click",
+	// 	(e) => {
+	// 		console.log("click");
+	// 	},
+	// 	{ once: true },
+	// );
+	// $submitButton.addEventListener("click", (e) => {
+	// 	console.log("click");
+	// });
+
+	$nameInput.addEventListener("change", eventinput);
+
+	$nameInput.removeEventListener("change", eventinput);
+
+	$nameInput.addEventListener("blur", (e) => {
+		console.log("blur");
+	});
+	$nameInput.addEventListener("focus", (e) => {
+		console.log("focus");
+	});
+	const $title = document.querySelector("h1");
+
+	$title.addEventListener("mouseover", (e) => {
+		console.log("over");
+	});
+</script>
