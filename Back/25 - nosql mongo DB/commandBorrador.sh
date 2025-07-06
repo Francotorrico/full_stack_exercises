@@ -1,62 +1,138 @@
-
-# EJERCICIOS DE MONGODB
-
-Ejercicio 1: Crear un Sistema de Gestión Académica
-
-1 - Crea una base de datos académica para gestionar la información de profesores.
-
-Requisitos:
-Crear una colección llamada profesores con validación de esquema que incluya los siguientes campos requeridos:
-
-nombre (string, mínimo 2 caracteres)
-
-edad (entero, entre 25 y 70)
-
-especialidad (string)
-
-añosExperiencia (entero, mínimo 0)
-
-2 - Insertar al menos tres documentos de ejemplo que contengan también los siguientes campos adicionales:
-
-email
-
-departamento
-
-salario
-
-activo (booleano)
-
-3 - Realizar las siguientes consultas:
-
-*Buscar todos los profesores con más de 15 años de experiencia.
-
-*Calcular el promedio de edad, experiencia y salario de los profesores activos.
-
-*Generar estadísticas por departamento: número de profesores, experiencia total, salario promedio y listado de nombres.
+db.createCollection("clientes", {    
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required:[
+                "nombre",
+                "apellido",
+                "estado",
+            ],
+            properties: {
+                nombre:{
+                    bsonType: "string",
+                    description: "Nombre del cliente"
+                },
+                apellido: {
+                    bsonType: "string",
+                    description: "Apellido del cliente"
+                },
+                estado: {
+                    bsonType: "bool",
+                    description: "Estado del cliente"
+                }
+            }
+        }
+    }
+});
 
 
 
-# Ejercicio 1: Crear un Sistema de Gestión Académica
-Crea una base de datos académica para gestionar la información de profesores.
 
-```
+
+db.animales.insertOne({
+    nombre: "Pantera",
+    tipo: "Salvaje",
+    estado: true,
+    cliente: "Aventurero",
+    peligro: "peligro de muerte"
+
+})
+
+db.animales.find()
+
+
+
+db.clientes.insertOne({
+    nombre: "franco",
+    apellido: "torri",
+    estado: true
+})
+
+
+db.clientes.insertOne({
+    nombre: "pepe",
+    apellido: "torri"
+})
+
+
+db.animales.find({tipo: "Salvaje"})
+
+db.animales.countDocuments()
+
+
+# buscar con filtro and implicito
+db.animales.find({tipo: "Salvaje", nombre: "Pantera"})
+
+# buscar con filtro and explicito
+# db.animales.find({tipo: "Salvaje", nombre: "Pantera"}, {_id: 0})
+
+# $eq -> igual ==
+#  $gt -> mayor que >
+# $lt -> menor que <
+# $gte -> mayor o igual que >=
+# $lte -> menor o igual que <=
+# $ne -> no igual que !=
+# $in -> en 
+# $nin -> no en , es como hacer lsita de excepciones
+# $exists -> existe
+# $not -> no 
+# $all -> todos
+
+
+db.animales.find({tipo: {$nin: ["Salvaje", "Granja"]}})
+
+# and explicito
+
+db.animales.find({
+    $and: [
+        {tipo: "Mascota"},
+        {nombre: "Perro"}
+    ]
+})
+
+db.animales.insertOne({
+    nombre: "Gato",
+    tipo: "Mascota",
+})
+
+
+
+# OR
+
+db.animales.find({
+    $or: [
+        {nombre: "Perro"},
+        {nombre: "Gato"}
+    ]
+    
+})
+
+
+# not
+ db.animales.find({
+    tipo: {
+        $not: /Salvaje/
+    }
+ })
+
+
+
+
+## ejercicios 1
+
 use academy
 
-```
-![image](./images/ejercicio1.PNG)
+# Crear una colección llamada profesores con validación de esquema que 
+# incluya los siguientes campos requeridos:
 
-## ejercicio 1-1
-Crear una colección llamada profesores con validación de esquema que incluya los siguientes campos requeridos:
+# nombre (string, mínimo 2 caracteres)
 
-nombre (string, mínimo 2 caracteres)
+# edad (entero, entre 25 y 70)
 
-edad (entero, entre 25 y 70)
+# especialidad (string)
 
-especialidad (string)
+# añosExperiencia (entero, mínimo 0)
 
-añosExperiencia (entero, mínimo 0)
-
-```
 db.createCollection("profesores",{
     validator :{
         $jsonSchema: {
@@ -78,23 +154,23 @@ db.createCollection("profesores",{
     }
 
 })
-```
-![image](./images/ejercicio1-1.PNG)
 
 
-## ejercicio 1-2
 
-Insertar al menos tres documentos de ejemplo que contengantambién los siguientes campos adicionales:
+## ejercicios 1-2
 
-email
+# Insertar al menos tres documentos de ejemplo que contengan
+# también los siguientes campos adicionales:
 
-departamento
+# email
 
-salario
+# departamento
 
-activo (booleano)
+# salario
 
-```
+# activo (booleano)
+
+
 db.profesores.insertMany([
     {
         nombre: "Franco",
@@ -128,14 +204,7 @@ db.profesores.insertMany([
     }
 
 ])
-```
-![image](./images/ejercicio1-2.PNG)
 
-
-
-Agregue uno mas para que el siguiente punto de filtrar a los profesores que tengan más de 15 años de experiencia.
-
-```
 db.profesores.insertOne({
     nombre: "Marcelo",
     edad: 30,
@@ -146,31 +215,33 @@ db.profesores.insertOne({
     salario: 2000,
     activo: true
 })
+db.profesores.insertOne({
+    nombre: "Gonzalo",
+    edad: 40,
+    especialidad: "Administrador",
+    añosExperiencia: 10,
+    email: "Gonzalo@gmail.com",
+    departamento: "Administrativo",
+    salario: 1500,
+    activo: true
+})
+## ejercicios 3
 
-```
+# Realizar las siguientes consultas:
+
+# Buscar todos los profesores con más de 15 años de experiencia.
 
 
 
-
-## ejercicio 1-3
-
-Realizar las siguientes consultas:
-
-Buscar todos los profesores con más de 15 años de experiencia.
-
-
-```
 db.profesores.find({
     añosExperiencia: {
         $gt: 15
     }
 })
-```
-![image](./images/ejercicio1-3.1.PNG)
 
- Calcular el promedio de edad, experiencia y salario de los profesores activos.
 
-```
+# Calcular el promedio de edad, experiencia y salario de los profesores activos.
+
 db.profesores.aggregate([
     { $match:{ activo: true}},
     {
@@ -189,29 +260,9 @@ db.profesores.aggregate([
     }
 
 ])
-```
-![image](./images/ejercicio1-3.2.PNG)
 
+# Generar estadísticas por departamento: número de profesores, experiencia total, salario promedio y listado de nombres.
 
-
-Generar estadísticas por departamento: número de profesores, experiencia total, salario promedio y listado de nombres.
-
--> solo tenia profesores con departamento ingenieria, agregue un usuario mas en otro departamento para filtrar. y se vea que el codigo funciona
-
-```
-db.profesores.insertOne({
-    nombre: "Gonzalo",
-    edad: 40,
-    especialidad: "Administrador",
-    añosExperiencia: 10,
-    email: "Gonzalo@gmail.com",
-    departamento: "Administrativo",
-    salario: 1500,
-    activo: true
-})
-```
-
-```
 db.profesores.aggregate([
     {
         $group : {
@@ -234,34 +285,27 @@ db.profesores.aggregate([
 
 
 ])
-```
-![image](./images/ejercicio1-3.3.PNG)
 
 
+## Ejercicio 2
+## Crear una colección llamada cursos e insertar al menos dos documentos con los siguientes campos:
 
-# 📚 Ejercicio 2: Sistema de Cursos y Matriculaciones
-Diseña una colección para administrar los cursos y su proceso de inscripción.
+# codigo (ej. "MAT101")
 
-## ejercicio 2-1
-Crear una colección llamada cursos e insertar al menos dos documentos con los siguientes campos:
+# nombre
 
- codigo (ej. "MAT101")
+# creditos
 
- nombre
+# profesorId (relación con la colección profesores)
 
- creditos
+# horario: un objeto con los días y el horario del curso.
 
- profesorId (relación con la colección profesores)
+# cupoMaximo
 
- horario: un objeto con los días y el horario del curso.
+# inscritos: un arreglo inicialmente vacío.
 
- cupoMaximo
+# 
 
- inscritos: un arreglo inicialmente vacío.
-
-## antes de insertar realize un update dentro de horarios el array "dia" a "dias" para clarificar la estructura
-
-```
 db.createCollection("cursos", {
     validator: {
         $jsonSchema: {
@@ -330,10 +374,9 @@ db.createCollection("cursos", {
     }
 
 })
-```
-![image](./images/ejercicio2-1.PNG)
 
-```
+
+
 db.cursos.insertMany([
   {
     codigo: "MAT101",
@@ -360,22 +403,31 @@ db.cursos.insertMany([
     inscritos: []
   }
 ]);
-```
-![image](./images/ejercicio2-1.1.PNG)
 
 
-![image](./images/ejercicio2-1.2.PNG)
+# Matricular un alumno en un curso agregando al arreglo inscritos un objeto con:
 
-## ejercicio 2-2 
-Matricular un alumno en un curso agregando al arreglo inscritos un objeto con:
+# alumnoId
 
-alumnoId
+# fechaInscripcion (fecha actual)
 
-fechaInscripcion (fecha actual)
+# estado (ej. "activo")
 
-estado (ej. "activo")
+db.cursos.insertOne({
+    {codigo: "MAT101"},
+    {
+        $push: {
+            inscritos: {
+                alumnoId: ObjectId("686a895d1df4a21ca1baa8be"), // Juan
+                fechaInscripcion: new Date(),
+                estado: "activo"
+            }
+        }
+    }
 
-```
+
+})
+
 db.createCollection("alumnos", {
   validator: {
     $jsonSchema: {
@@ -389,16 +441,24 @@ db.createCollection("alumnos", {
     }
   }
 });
-```
-![image](./images/ejercicio2-2.PNG)
-![image](./images/ejercicio2-2.1.PNG)
 
 
+var alumnoId = ObjectId("686ac11f1df4a21ca1baa8c5");
 
-# ejercicio 2-3
- Consultar los cursos con cupos disponibles, calculando el número de cupos restantes y mostrando solo aquellos con disponibilidad.
+db.cursos.updateOne(
+  { codigo: "MAT101" },
+  {
+    $push: {
+      inscritos: {
+        alumnoId: alumnoId,
+        fechaInscripcion: new Date(),
+        estado: "activo"
+      }
+    }
+  }
+);
 
-``` 
+## punto 3
 
 db.cursos.aggregate([
     {
@@ -420,5 +480,3 @@ db.cursos.aggregate([
         }
     }
 ])
-```
-![image](./images/ejercicio2-3.PNG)
