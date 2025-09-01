@@ -1,0 +1,354 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Gothic&display=swap');
+
+* {
+    /* outline: 0.5px solid red; */
+
+}
+
+.league-gothic {
+    font-family: "League Gothic", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+        "wdth" 100;
+    font-size: 1rem;
+    /*agregar espaciado*/
+    letter-spacing: 0.04rem;
+}
+
+.component {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    background-color: #a9bdd0;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.871);
+    padding-bottom: 1rem;
+
+    h1 {
+        box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+        background: linear-gradient(135deg, #fffa87, #fff3b0);
+        transform: rotate(-1deg);
+        transition: transform 0.2s;
+        font-size: 4rem;
+        text-align: center;
+        padding: 0.2rem;
+    }
+
+    h1:hover {
+        transform: rotate(1deg);
+    }
+
+    .addTask-btn {
+        width: 80%;
+        padding: 0.5rem;
+        background-color: #22913e4e;
+        color: white;
+        border: 2px solid #292c2e92;
+
+    }
+
+    .addTask-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(30, 92, 22, 0.474);
+    }
+    .addTask-btn:not(:disabled) {
+        background-color: #22913e; /* verde sólido */
+
+    }
+    .addTask-btn:hover:not(:disabled) {
+        background-color: #186d2d;
+    }
+
+    input {
+        width: 80%;
+        padding: 0.5rem;
+        border-radius: none;
+
+        border: 2px solid #292c2e92;
+    }
+
+    input::placeholder {
+        font-style: italic;
+        color: #292c2e58;
+    }
+
+    input:focus {
+        border: 2px solid #fffa87;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 6px rgba(255, 250, 135, 0.5);
+
+
+    }
+
+    .task-filter {
+        display: flex;
+        margin-top: 1rem;
+
+        button {
+            padding: 0.2rem 0.6rem;
+            font-size: 0.75rem;
+            border: 1px solid #333;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+            margin-left: -1px;
+
+        }
+
+        button:first-child {
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            margin-left: 0;
+            /* el primero no necesita superposición */
+        }
+
+        button:last-child {
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+
+
+        button.active {
+            background-color: #a9bdd0;
+            border-color: #888;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #d9d9d9;
+            transform: translateY(-1px);
+        }
+    }
+}
+
+.task-list {
+    margin-top: 10%;
+    padding: 0.2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+
+    .task-item {
+        /* background: color-mix(in oklch, #92e990, #00ffff 5%) */
+        background: #f5f5dc;
+        border-top: 12px solid #f7c6319a;
+        position: relative;
+        padding: 0.5rem;
+
+        .task-date {
+            font-size: 0.6rem;
+
+            color: rgba(0, 0, 0, 0.655);
+            font-style: italic;
+            position: absolute;
+            top: 0.5rem;
+            /* separa un poco del borde superior */
+            right: 0.5rem;
+            margin-top: -6.7%;
+            /* pega al borde derecho */
+        }
+
+        .delete-btn {
+            width: 100%;
+            padding: 0.1rem 0.6rem;
+            margin-top: 1%;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            background-color: #a213189c;
+            color: white;
+
+            border-radius: 0;
+        }
+
+        .delete-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            border: #912226 solid 2px;
+            background-color: rgba(158, 24, 24, 0.765);
+        }
+    }
+
+    .task-item::after {
+        content: '';
+        position: absolute;
+        top: -8px;
+        left: 12px;
+        width: 14px;
+        height: 14px;
+        background: radial-gradient(circle at 30% 30%, #232121, #695455);
+        border-radius: 50%;
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.837);
+
+    }
+
+    .task-content {
+
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        
+        padding: 0.5rem;
+        border-radius: 8px;
+        max-width: 100%;
+
+        
+
+        .task-label input {
+            display: none;
+        }
+
+        .task-label {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 30px;
+            position: relative;
+        }
+
+        .task-label span {
+            display: inline-block;
+            width: 15px;
+            height: 30px;
+            background: rgb(186, 186, 186);
+            border-radius: 30px;
+            border: none;
+
+            cursor: pointer;
+            box-shadow: inset 0px 0px 2px rgb(15, 15, 15);
+
+            
+            transform: scale(0.9);
+        }
+
+        .task-label span:after {
+            content: "";
+            width: 15px;
+            height: 15px;
+            display: block;
+            background: radial-gradient(circle at 30% 30%, #d90606, #912226);
+            border-radius: 30px;
+
+            transition: 0.4s;
+            transform: scale(0.9);
+
+            box-shadow: inset 0px 0px 2px rgb(37, 37, 37);
+
+
+
+        }
+
+        .task-checkbox:checked~span::after {
+            background: radial-gradient(circle at 30% 30%, #70d906, #22913e);
+
+            /*mover abajo*/
+            transform: translateY(15px) scale(0.9);
+
+        }
+
+
+        .task-label .check-icon {
+            color: rgb(255, 255, 255);
+            filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+            position: absolute;
+            top: 0.16rem;
+            right: 0.15rem;
+            font-size: 0.6rem;
+            z-index: 1;
+            transition: 0.4s;
+
+
+
+        }
+
+        .task-checkbox:checked~span .check-icon {
+            transform: translateY(15px) scale(0.9);
+            opacity: 1;
+        }
+
+        .on {
+            opacity: 0;
+        }
+
+    }
+
+    .task-text {
+
+        font-family: "League Gothic", sans-serif;
+        
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+       
+        width: 100%;
+        padding: 0.2rem;
+        height: 150px;
+
+        white-space: normal;
+        /* permite saltos de línea */
+        word-wrap: break-word;
+        /* corta palabras largas */
+        overflow-wrap: anywhere;
+        overflow-y: auto;
+        /* scroll vertical cuando el contenido exceda */
+        scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+        scrollbar-width: thin;
+
+
+        .task-title {
+            font-size: 1rem;
+            margin: 0.2rem 0 0.5rem 0;
+            width: 100%;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+            /* línea */
+            padding-bottom: 0.2rem;
+            font-weight: 700;
+        }
+
+        .task-description {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 0.8rem;
+            margin-top: 0;
+            align-self: flex-start;
+            line-height: 1.1;
+            font-weight: 200;
+            text-align: justify;
+         
+
+    
+        }
+
+
+    }
+
+
+
+
+}
+
+@media (min-width: 600px) and (max-width: 991px) {
+    .task-list {
+                grid-template-columns: repeat(2, 250px);
+        justify-content: center; 
+        gap: 1rem; 
+    }
+
+
+}
+
+/* Desktop: 992px en adelante -> 3 columnas mínimo 250px */
+@media (min-width: 992px)and (max-width: 1199px) {
+    .task-list {
+        grid-template-columns: repeat(3, 250px);
+    }
+}
+
+/* Desktop: 1200px en adelante -> 4 columnas mínimo 250px */
+@media (min-width: 1200px) {
+    .task-list {
+        grid-template-columns: repeat(4, 250px);
+    }
+}
