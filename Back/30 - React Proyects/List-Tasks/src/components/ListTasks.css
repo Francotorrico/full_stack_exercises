@@ -54,10 +54,13 @@
         transform: translateY(-2px);
         box-shadow: 0 4px 8px rgba(30, 92, 22, 0.474);
     }
+
     .addTask-btn:not(:disabled) {
-        background-color: #22913e; /* verde sólido */
+        background-color: #22913e;
+        /* verde sólido */
 
     }
+
     .addTask-btn:hover:not(:disabled) {
         background-color: #186d2d;
     }
@@ -86,6 +89,19 @@
     .task-filter {
         display: flex;
         margin-top: 1rem;
+
+        @media (prefers-color-scheme: dark) {
+            button {
+                /* padding: 0.2rem 0.6rem;
+                font-size: 0.75rem;
+                border: 1px solid #333;
+                background-color: #f0f0f0;
+                cursor: pointer;
+                transition: background-color 0.2s, transform 0.2s;
+                margin-left: -1px; */
+                color: black;
+            }
+        }
 
         button {
             padding: 0.2rem 0.6rem;
@@ -189,12 +205,12 @@
         display: flex;
         align-items: flex-start;
         gap: 1rem;
-        
+
         padding: 0.5rem;
         border-radius: 8px;
         max-width: 100%;
 
-        
+
 
         .task-label input {
             display: none;
@@ -219,7 +235,7 @@
             cursor: pointer;
             box-shadow: inset 0px 0px 2px rgb(15, 15, 15);
 
-            
+
             transform: scale(0.9);
         }
 
@@ -241,7 +257,7 @@
         }
 
         .task-checkbox:checked~span::after {
-            background: radial-gradient(circle at 30% 30%, #70d906, #22913e);
+            background: radial-gradient(circle at 30% 30%, #478806, #2bb74e5c);
 
             /*mover abajo*/
             transform: translateY(15px) scale(0.9);
@@ -277,12 +293,12 @@
     .task-text {
 
         font-family: "League Gothic", sans-serif;
-        
+
 
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-       
+
         width: 100%;
         padding: 0.2rem;
         height: 150px;
@@ -316,9 +332,9 @@
             line-height: 1.1;
             font-weight: 200;
             text-align: justify;
-         
 
-    
+
+
         }
 
 
@@ -331,9 +347,9 @@
 
 @media (min-width: 600px) and (max-width: 991px) {
     .task-list {
-                grid-template-columns: repeat(2, 250px);
-        justify-content: center; 
-        gap: 1rem; 
+        grid-template-columns: repeat(2, 250px);
+        justify-content: center;
+        gap: 1rem;
     }
 
 
