@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './ListTasks.css'
 import '../App.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -75,6 +75,19 @@ export default function ListTasks() {
             return task
         }))
     }
+
+
+    useEffect(() => {
+        const localStorageTasks = localStorage.getItem('tasks')
+        if (localStorageTasks) {
+            setTasks(JSON.parse(localStorageTasks))
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }, [tasks]);
+    
     return (
         <>
             <div className='App'>
