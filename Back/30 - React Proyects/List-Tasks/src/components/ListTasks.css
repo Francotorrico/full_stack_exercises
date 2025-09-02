@@ -77,6 +77,12 @@
         font-style: italic;
         color: #292c2e58;
     }
+    @media (prefers-color-scheme: dark) {
+        input::placeholder{
+            color: white;
+            
+       }
+    }
 
     input:focus {
         border: 2px solid #fffa87;
