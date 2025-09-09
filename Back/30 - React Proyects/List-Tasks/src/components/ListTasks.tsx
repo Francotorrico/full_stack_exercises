@@ -29,6 +29,43 @@ export default function ListTasks() {
     //para filtro
     const [filter, setFilter] = useState<"all" | "pending" | "completed">("all")
 
+
+
+    // para ingles -español
+    const [lang, setLang] = useState<"en" | "es">("en")
+    const translations = {
+        en: {
+            title: "List Tasks",
+            addTask: "+ Add task",
+            writeTitle: "Write a title...",
+            writeDescription: "Write a description...",
+            all: "All",
+            pending: "Pending",
+            completed: "Completed",
+            createdAt: "Created at",
+            delete: "Delete"
+        },
+        es: {
+            title: "Lista de Tareas",
+            addTask: "+ Agregar tarea",
+            writeTitle: "Escribe un título...",
+            writeDescription: "Escribe una descripción...",
+            all: "Todas",
+            pending: "Pendientes",
+            completed: "Completadas",
+            createdAt: "Creado el",
+            delete: "Borrar"
+        }
+    }
+    const t = (key: keyof typeof translations["en"]) => translations[lang][key];
+
+
+    const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setLang(e.target.value as "es" | "en");
+    };
+
+
+
     // add element to listTask
     const addTask = (Task: Task) => {
         setTasks((prev) => [...prev, Task])
@@ -87,35 +124,43 @@ export default function ListTasks() {
     useEffect(() => {
         localStorage.setItem('tasks', JSON.stringify(tasks));
     }, [tasks]);
-    
+
     return (
         <>
             <div className='App'>
 
                 <div className='component'>
+                    <div className="language-selector">
+                        <div className="background-behind"></div>
+                        <select className='round' value={lang} onChange={handleChange}>
+                            <option value="es">Español</option>
+                            <option value="en">English</option>
+                        </select>
+                    </div>
 
-                    <h1>List Tasks</h1>
+
+                    <h1>{t("title")}</h1>
                     <input className='league-gothic'
                         value={newTitle}
                         onChange={(e) => setNewTitle(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && handleAdd()}
-                        placeholder="Write a title..."
+                        placeholder={t("writeTitle")}
                     />
 
-                    <input className='league-gothic' value={newDescription} onChange={(e) => setNewDescription(e.target.value)} placeholder="Write a description..." />
+                    <input className='league-gothic' value={newDescription} onChange={(e) => setNewDescription(e.target.value)} placeholder={t("writeDescription")} />
 
                     <button
                         onClick={() => handleAdd()}
                         disabled={newTitle === ''}
                         className='addTask-btn'
                     >
-                        + Add Task
+                        {t("addTask")}
                     </button>
 
                     <div className='task-filter'>
-                        <button onClick={() => setFilter("all")} className={filter === "all" ? "active" : ""}>All</button>
-                        <button onClick={() => setFilter("pending")} className={filter === "pending" ? "active" : ""}>Pending</button>
-                        <button onClick={() => setFilter("completed")} className={filter === "completed" ? "active" : ""}>Completed</button>
+                        <button onClick={() => setFilter("all")} className={filter === "all" ? "active" : ""}>{t("all")}</button>
+                        <button onClick={() => setFilter("pending")} className={filter === "pending" ? "active" : ""}>{t("pending")}</button>
+                        <button onClick={() => setFilter("completed")} className={filter === "completed" ? "active" : ""}>{t("completed")}</button>
 
                     </div>
                 </div>
@@ -133,7 +178,7 @@ export default function ListTasks() {
 
                             <div key={task.id} className='task-item'>
                                 <span className='task-date'>
-                                    Created at: {new Date(task.id).toLocaleString()}
+                                    {t("createdAt")}: {new Date(task.id).toLocaleString()}
                                 </span>
 
                                 <div className='task-content'>
@@ -165,7 +210,7 @@ export default function ListTasks() {
                                         <p className='task-description'>{task.description}</p>
                                     </div>
                                 </div>
-                                <button onClick={() => deleteTask(task.id)} className='delete-btn'>Delete</button>
+                                <button onClick={() => deleteTask(task.id)} className='delete-btn'>{t("delete")}</button>
                             </div>
                         ))}
                 </ul>

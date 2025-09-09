@@ -374,3 +374,97 @@
         grid-template-columns: repeat(4, 250px);
     }
 }
+.language-selector {
+    font-family: "League Gothic", sans-serif;
+    position: fixed;
+    top: 1em;
+    left: 1em; 
+    z-index: 1;
+}
+.language-selector select:hover{
+    /*levantar*/
+    transform: translateY(-1px);
+    box-shadow: white 0px 0px 2px;
+}
+.language-selector select.round {
+    /* Fondo vidrio */
+    background-color: rgba(255, 255, 255, 0.141);
+    backdrop-filter: blur(10px) saturate(50%);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.839);
+    color: #ffffff;
+    margin: 0.5em;
+    
+    /* Redondeado y padding */
+    border-radius: 20px;
+    padding: 0.5em 3.5em 0.5em 1em;
+    font: inherit;
+    line-height: 1.5em;
+    letter-spacing: 1px; /* espaciado entre letras */
+    cursor: pointer;
+    display: inline-block;
+    transition: all 0.2s ease-in-out;
+
+    /* Flecha custom */
+    background-image:
+        linear-gradient(45deg, transparent 50%, gray 50%),
+        linear-gradient(135deg, rgb(190, 187, 187) 50%, transparent 50%),
+        radial-gradient(#ddd 70%, transparent 72%);
+    background-position:
+        calc(100% - 20px) calc(1em + 2px),
+        calc(100% - 15px) calc(1em + 2px),
+        calc(100% - 0.5em) 0.5em;
+    background-size:
+        5px 5px,
+        5px 5px,
+        1.5em 1.5em;
+    background-repeat: no-repeat;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.language-selector select.round:focus {
+    background-image:
+        linear-gradient(45deg, rgba(255, 255, 255, 0.51) 50%, transparent 50%),
+        linear-gradient(135deg, transparent 50%, rgba(255, 255, 255, 0.32) 50%),
+        radial-gradient(rgb(58, 56, 56) 70%, transparent 72%);
+    background-position:
+        calc(100% - 15px) 1em,
+        calc(100% - 20px) 1em,
+        calc(100% - 0.5em) 0.5em;
+    border-color: rgba(148, 149, 156, 0.85);
+    outline: none;
+    transform: scale(1.02);
+}
+
+/* Opciones desplegables */
+.language-selector select.round option {
+    background-color: #ffffff; /* azul */
+    color: rgb(0, 0, 0); /* letras blancas */
+    padding: 0.5em 1em;
+}
+
+/* Hover para opciones (Chrome/Edge) */
+.language-selector select.round option:hover {
+    background-color: #f5f5f5; /* azul más oscuro */
+    color: rgb(8, 7, 7);
+}
+
+@media (max-width: 600px) {
+
+  .language-selector {
+      top: 0;               /* reset */
+      position: sticky;      /* ya no absolute */
+    left: auto;              /* reset */
+    width: 100%;             /* ocupa todo el ancho */
+    display: flex;           /* para centrar o alinear */
+    justify-content: flex-end; /* por ejemplo a la derecha */
+    z-index: 10;
+  }
+
+  .language-selector select.round {
+    width: auto;            /* ajusta el ancho del select */
+    max-width: 150px;       /* opcional */
+  }
+}
