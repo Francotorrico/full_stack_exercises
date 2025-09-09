@@ -129,7 +129,6 @@ export default function ListTasks() {
         <>
             <div className='App'>
 
-                <div className='component'>
                     <div className="language-selector">
                         <div className="background-behind"></div>
                         <select className='round' value={lang} onChange={handleChange}>
@@ -137,6 +136,7 @@ export default function ListTasks() {
                             <option value="en">English</option>
                         </select>
                     </div>
+                <div className='component'>
 
 
                     <h1>{t("title")}</h1>

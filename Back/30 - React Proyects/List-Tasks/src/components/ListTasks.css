@@ -18,6 +18,7 @@
 }
 
 .component {
+    margin-top: 3rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -452,19 +453,23 @@
 }
 
 @media (max-width: 600px) {
+    
 
   .language-selector {
-      top: 0;               /* reset */
-      position: sticky;      /* ya no absolute */
-    left: auto;              /* reset */
+    display: flex;        /* alinea horizontalmente */
+
+    justify-content: flex-end;
+    /*bien a la derecha seria*/
+
+    /* reset */
     width: 100%;             /* ocupa todo el ancho */
-    display: flex;           /* para centrar o alinear */
-    justify-content: flex-end; /* por ejemplo a la derecha */
     z-index: 10;
+    padding: 0.5em;
+    top: 0;
   }
 
   .language-selector select.round {
     width: auto;            /* ajusta el ancho del select */
-    max-width: 150px;       /* opcional */
+    background-color: rgba(0, 0, 0, 0.4);  /* más oscuro en mobile */
   }
 }
