@@ -13,7 +13,6 @@
     font-variation-settings:
         "wdth" 100;
     font-size: 1rem;
-    /*agregar espaciado*/
     letter-spacing: 0.04rem;
 }
 
@@ -58,7 +57,6 @@
 
     .addTask-btn:not(:disabled) {
         background-color: #22913e;
-        /* verde sólido */
 
     }
 
@@ -125,7 +123,6 @@
             border-top-left-radius: 20px;
             border-bottom-left-radius: 20px;
             margin-left: 0;
-            /* el primero no necesita superposición */
         }
 
         button:last-child {
@@ -155,7 +152,6 @@
     gap: 1rem;
 
     .task-item {
-        /* background: color-mix(in oklch, #92e990, #00ffff 5%) */
         background: #f5f5dc;
         border-top: 12px solid #f7c6319a;
         position: relative;
@@ -168,7 +164,6 @@
             font-style: italic;
             position: absolute;
             top: 0.5rem;
-            /* separa un poco del borde superior */
             right: 0.5rem;
             margin-top: -6.7%;
             /* pega al borde derecho */
@@ -383,7 +378,7 @@
     z-index: 1;
 }
 .language-selector select:hover{
-    /*levantar*/
+    
     transform: translateY(-1px);
     box-shadow: white 0px 0px 2px;
 }
@@ -439,16 +434,14 @@
     transform: scale(1.02);
 }
 
-/* Opciones desplegables */
 .language-selector select.round option {
-    background-color: #ffffff; /* azul */
+    background-color: #ffffff; 
     color: rgb(0, 0, 0); /* letras blancas */
     padding: 0.5em 1em;
 }
 
-/* Hover para opciones (Chrome/Edge) */
 .language-selector select.round option:hover {
-    background-color: #f5f5f5; /* azul más oscuro */
+    background-color: #f5f5f5; 
     color: rgb(8, 7, 7);
 }
 
@@ -456,20 +449,18 @@
     
 
   .language-selector {
-    display: flex;        /* alinea horizontalmente */
+    display: flex;     
 
     justify-content: flex-end;
-    /*bien a la derecha seria*/
 
-    /* reset */
-    width: 100%;             /* ocupa todo el ancho */
+    width: 100%;             
     z-index: 10;
     padding: 0.5em;
     top: 0;
   }
 
   .language-selector select.round {
-    width: auto;            /* ajusta el ancho del select */
-    background-color: rgba(0, 0, 0, 0.4);  /* más oscuro en mobile */
+    width: auto;          
+    background-color: rgba(0, 0, 0, 0.4);  
   }
 }
