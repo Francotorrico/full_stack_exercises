@@ -1,19 +1,33 @@
-📋 ListTasks
 
-Aplicación web sencilla para gestionar tareas, desarrollada con React + TypeScript + TailwindCSS.
+# 📋 ListTasks
+
+Aplicación web sencilla, dinamica y responsiva para gestionar tareas, desarrollada con React + TypeScript + vite.
 Permite agregar tareas, listarlas y mantener un diseño responsivo (móvil → tablet → escritorio).
 
-🚀 Características
+## 📝 Descripción
 
-➕ Agregar nuevas tareas
+Esta aplicación web comenzó como una actividad sencilla. Pero fue escalando en cuanto a mejorar la experiencia del usuario, y recibir feedbacks positivos constantes, realizando una pequeña busqueda de campo y preguntar a usuarios sobre si lo usarian y estaban interesados en usar la aplicación.
 
-✅ Marcar tareas como completadas
+# 🚀 Características principales
 
-❌ Eliminar tareas
+- ➕ Agregar nuevas tareas
 
-🔎 Filtrar tareas (todas, completadas, pendientes)
+- ✅ Marcar tareas como completadas
 
-📱 Diseño responsivo (móvil → tablet → escritorio)
+- ❌ Eliminar tareas
+
+- 🔎 Filtrar tareas (todas, completadas, pendientes)
+
+- 📱 Diseño responsivo (móvil → tablet → escritorio)
+
+# Extras
+
+- 🌍 Selección de idioma (ingles/ español)
+
+- 🌓 Adaptación automática al navegador (modo claro/oscuro) 
+
+- 💻 Guardar tareas en localStorage para mantener las tareas en cualquier momento.
+
 
 # Breakpoints adaptados:
 
