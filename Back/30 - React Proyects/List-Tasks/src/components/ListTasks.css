@@ -163,9 +163,9 @@
             color: rgba(0, 0, 0, 0.655);
             font-style: italic;
             position: absolute;
-            top: 0.5rem;
+            top:-12px;
             right: 0.5rem;
-            margin-top: -6.7%;
+            margin-top: 0;
             /* pega al borde derecho */
         }
 
