@@ -8,6 +8,11 @@ Permite agregar tareas, listarlas y mantener un diseño responsivo (móvil → t
 
 Esta aplicación web comenzó como una actividad sencilla. Pero fue escalando en cuanto a mejorar la experiencia del usuario, y recibir feedbacks positivos constantes, realizando una pequeña busqueda de campo y preguntar a usuarios sobre si lo usarian y estaban interesados en usar la aplicación.
 
+## 🌐 Demo
+
+Podés probar la app en vivo en: [https://list-tasks-sigma.vercel.app/](https://list-tasks-sigma.vercel.app/)
+
+
 # 🚀 Características principales
 
 - ➕ Agregar nuevas tareas
@@ -26,7 +31,7 @@ Esta aplicación web comenzó como una actividad sencilla. Pero fue escalando en
 
 - 🌓 Adaptación automática al navegador (modo claro/oscuro) 
 
-- 💻 Guardar tareas en localStorage para mantener las tareas en cualquier momento.
+- 💻 Persistencia, Guardar tareas en localStorage para mantener las tareas en cualquier momento.
 
 
 # Breakpoints adaptados:
