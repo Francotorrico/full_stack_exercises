@@ -6,7 +6,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Registro de Usuario</h1>
+      <h1>Register User</h1>
       <FormContact />
     </div>
   )
